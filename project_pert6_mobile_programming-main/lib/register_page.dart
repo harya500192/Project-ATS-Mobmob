@@ -1,42 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'main_page.dart';
-import 'register_page.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  Future<void> _login() async {
-    if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-      // Save login status
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      
-      if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MainPage()),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter username and password')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Register'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,18 +41,25 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: _login,
-              child: const Text('Login'),
+              onPressed: () {
+                // In a real app, you would save these credentials
+                // For now, just navigate back to login
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text('Register'),
             ),
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
-              child: const Text('Don\'t have an account? Register'),
+              child: const Text('Already have an account? Login'),
             ),
           ],
         ),
