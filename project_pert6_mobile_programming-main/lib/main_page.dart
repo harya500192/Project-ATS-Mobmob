@@ -1,10 +1,12 @@
+// main_page.dart
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'menu_1.dart';
 import 'menu_2.dart';
 import 'menu_3.dart';
-import 'menu_4.dart';
+import 'menu_4.dart'; // Antrian (baru)
+import 'menu_5.dart'; // Halaman sederhana (sebelumnya menu_4)
 import 'login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -27,7 +29,7 @@ class MainPage extends StatelessWidget {
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
               await prefs.setBool('isLoggedIn', false);
-              
+
               if (!context.mounted) return;
               Navigator.pushReplacement(
                 context,
@@ -50,7 +52,7 @@ class MainPage extends StatelessWidget {
                 onTap: () => navigateTo(context, const Menu1()),
               ),
             ),
-            
+
             // Menu 2 - Input Kalkulator
             Card(
               child: ListTile(
@@ -59,7 +61,7 @@ class MainPage extends StatelessWidget {
                 onTap: () => navigateTo(context, const Menu2()),
               ),
             ),
-            
+
             // Menu 3 - Kalkulator
             Card(
               child: ListTile(
@@ -68,13 +70,22 @@ class MainPage extends StatelessWidget {
                 onTap: () => navigateTo(context, const Menu3()),
               ),
             ),
-            
-            // Menu 4 - Halaman Kosong
+
+            // Menu 4 - Antrian (baru)
             Card(
               child: ListTile(
-                title: const Text('Menu 4'),
-                subtitle: const Text('Contoh halaman sederhana dengan tombol kembali'),
+                title: const Text('Menu 4 - Antrian'),
+                subtitle: const Text('Sistem antrian dengan QR ticket (generate & check-in)'),
                 onTap: () => navigateTo(context, const Menu4()),
+              ),
+            ),
+
+            // Menu 5 - Halaman sederhana (sebelumnya menu 4)
+            Card(
+              child: ListTile(
+                title: const Text('Menu 5'),
+                subtitle: const Text('Contoh halaman sederhana dengan tombol kembali'),
+                onTap: () => navigateTo(context, const Menu5()),
               ),
             ),
           ],
